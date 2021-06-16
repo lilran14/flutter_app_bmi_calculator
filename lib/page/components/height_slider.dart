@@ -50,16 +50,14 @@ class HeightSlider extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 25),
+                  margin: EdgeInsets.only(bottom: 22.5),
                   child: SvgPicture.asset(
                       "assets/images/" +
                           svgSelector(bmiController.bmiCalculation()),
                       height:
-                          ((widthSize - 60) / (heightSliderRatio * 100) * 100 -
-                                      65) *
-                                  bmiState.height! /
-                                  190 +
-                              20),
+                          (((widthSize - 50) / (heightSliderRatio * 100) * 100 -
+                                  55)) *
+                              (bmiState.height! / 190)),
                 )),
             Align(
               alignment: Alignment.centerRight,
@@ -68,10 +66,24 @@ class HeightSlider extends StatelessWidget {
                 height: double.infinity,
                 child: SfSliderTheme(
                   data: SfSliderThemeData(
+                      labelOffset: Offset(-10, -5),
+                      thumbRadius: 20,
+                      activeLabelStyle: TextStyle(fontSize: 10),
+                      inactiveLabelStyle: TextStyle(fontSize: 10),
                       thumbColor: kAccentColor,
                       activeTrackColor: kPrimaryColor,
-                      inactiveTrackColor: kPrimaryColor),
+                      inactiveTrackColor: kPrimaryColor,
+                      activeTrackHeight: 0.0,
+                      inactiveTrackHeight: 0.0),
                   child: SfSlider.vertical(
+                    thumbIcon: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          bmiState.height!.toInt().toString() + "cm",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w700),
+                        )),
                     showLabels: true,
                     interval: 10,
                     min: 0.0,
@@ -85,10 +97,10 @@ class HeightSlider extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: ((widthSize - 60) / (heightSliderRatio * 100) * 100 - 65) -
+              top: ((widthSize - 50) / (heightSliderRatio * 100) * 100 - 55) -
                   ((bmiState.height! / 190) *
-                      (((widthSize - 60) / (heightSliderRatio * 100) * 100 -
-                          65))) +
+                      (((widthSize - 50) / (heightSliderRatio * 100) * 100 -
+                          55))) +
                   25,
               left: 0,
               child: Container(

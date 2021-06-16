@@ -25,13 +25,21 @@ class WeightSlider extends StatelessWidget {
       child: SfSliderTheme(
         data: SfSliderThemeData(
             labelOffset: Offset(0, -10),
+            thumbRadius: 15,
             thumbColor: Colors.white,
             activeTrackHeight: 0.0,
             inactiveTrackHeight: 0.0),
         child: SfSlider(
-          thumbShape: _RectThumbShape(),
+          thumbIcon: Container(
+              alignment: Alignment.center,
+              child: Text(
+                bmiState.weight!.toInt().toString() + "kg",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+              )),
           showLabels: true,
           value: bmiState.weight,
+          interval: 10,
           max: 100.0,
           min: 0.0,
           onChanged: (value) {
@@ -40,42 +48,5 @@ class WeightSlider extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _RectThumbShape extends SfThumbShape {
-  @override
-  void paint(PaintingContext context, Offset center,
-      {required RenderBox parentBox,
-      required RenderBox? child,
-      required SfSliderThemeData themeData,
-      SfRangeValues? currentValues,
-      dynamic currentValue,
-      required Paint? paint,
-      required Animation<double> enableAnimation,
-      required TextDirection textDirection,
-      required SfThumb? thumb}) {
-    super.paint(context, center,
-        parentBox: parentBox,
-        child: child,
-        themeData: themeData,
-        currentValue: currentValue,
-        paint: paint,
-        enableAnimation: enableAnimation,
-        textDirection: textDirection,
-        thumb: thumb);
-
-    final Path path = Path();
-
-    path.moveTo(center.dx, center.dy);
-    path.lineTo(center.dx + 10, center.dy - 15);
-    path.lineTo(center.dx - 10, center.dy - 15);
-    path.close();
-    context.canvas.drawPath(
-        path,
-        Paint()
-          ..color = themeData.activeTrackColor!
-          ..style = PaintingStyle.fill
-          ..strokeWidth = 2);
   }
 }
